@@ -12,11 +12,6 @@ import {
   Users,
 } from "lucide-react";
 import { useState } from "react";
-import { AlternativeIdeas } from "@/components/alternative-ideas";
-import { CompetitorAnalysis } from "@/components/competitor-analysis";
-import { ExportButtons } from "@/components/export-buttons";
-import { ImprovementSuggestions } from "@/components/improvement-suggestions";
-import { ScoreBreakdown } from "@/components/score-breakdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -28,6 +23,11 @@ import {
   getVerdictColor,
 } from "@/lib/utils";
 import type { ValidationReport } from "@/types";
+import { AlternativeIdeas } from "./alternative-ideas";
+import { CompetitorAnalysis } from "./competitor-analysis";
+import { ExportButtons } from "./export-buttons";
+import { ImprovementSuggestions } from "./improvement-suggestions";
+import { ScoreBreakdown } from "./score-breakdown";
 
 interface ReportDisplayProps {
   report: ValidationReport;

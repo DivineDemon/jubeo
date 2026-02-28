@@ -1,13 +1,16 @@
 "use client";
 
+import type { VariantProps } from "class-variance-authority";
 import { Moon, Sun } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-
 import { cn } from "@/lib/utils";
+import { Button, type buttonVariants } from "./button";
 
 interface AnimatedThemeTogglerProps
-  extends React.ComponentPropsWithoutRef<"button"> {
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
   duration?: number;
 }
 
@@ -72,14 +75,15 @@ export const AnimatedThemeToggler = ({
   }, [isDark, duration]);
 
   return (
-    <button
+    <Button
+      {...props}
+      type="button"
       ref={buttonRef}
       onClick={toggleTheme}
       className={cn(className)}
-      {...props}
     >
       {isDark ? <Sun /> : <Moon />}
       <span className="sr-only">Toggle theme</span>
-    </button>
+    </Button>
   );
 };
