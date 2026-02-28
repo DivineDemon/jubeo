@@ -20,13 +20,13 @@ import { ScoreBreakdown } from "@/components/score-breakdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils/cn";
 import {
+  cn,
   formatDate,
   getScoreBgColor,
   getScoreColor,
   getVerdictColor,
-} from "@/lib/utils/format";
+} from "@/lib/utils";
 import type { ValidationReport } from "@/types";
 
 interface ReportDisplayProps {
@@ -109,7 +109,7 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
         </div>
       </div>
 
-      <Card variant="elevated" className="overflow-hidden">
+      <Card className="overflow-hidden">
         <div className="bg-linear-to-br from-indigo-600 to-violet-700 px-6 py-8 text-white">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex-1 min-w-0">
@@ -222,8 +222,7 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                     </div>
                     <Progress
                       value={metric.score}
-                      barClassName={getScoreBgColor(metric.score)}
-                      size="sm"
+                      className={cn(getScoreBgColor(metric.score))}
                     />
                   </div>
                 ))}

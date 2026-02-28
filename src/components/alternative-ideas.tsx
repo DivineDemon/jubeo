@@ -3,8 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils/cn";
-import { getScoreBgColor, getScoreColor } from "@/lib/utils/format";
+import { cn, getScoreBgColor, getScoreColor } from "@/lib/utils";
 import type { AlternativeIdea } from "@/types";
 
 interface AlternativeIdeasProps {
@@ -38,8 +37,7 @@ export function AlternativeIdeas({ alternatives }: AlternativeIdeasProps) {
 
             <Progress
               value={alt.viabilityScore}
-              barClassName={getScoreBgColor(alt.viabilityScore)}
-              size="sm"
+              className={cn(getScoreBgColor(alt.viabilityScore))}
             />
 
             <p className="text-xs text-slate-600 leading-relaxed">

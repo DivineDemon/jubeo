@@ -107,7 +107,7 @@ export default function Home() {
             </div>
 
             <div className="max-w-2xl mx-auto">
-              <Card variant="elevated">
+              <Card>
                 <CardContent className="py-6">
                   {isError && (
                     <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
@@ -140,7 +140,7 @@ export default function Home() {
 
         {isAnalyzing && (
           <div className="max-w-md mx-auto">
-            <Card variant="elevated">
+            <Card>
               <CardContent className="py-4">
                 <AnalysisProgress />
               </CardContent>

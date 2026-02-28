@@ -1,7 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils/cn";
-import { getPriorityColor } from "@/lib/utils/format";
+import { cn, getPriorityColor } from "@/lib/utils";
 import type { ImprovementSuggestion } from "@/types";
 
 interface ImprovementSuggestionsProps {

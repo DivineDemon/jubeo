@@ -1,5 +1,5 @@
-import { formatDate } from "@/lib/utils/format";
 import type { ValidationReport } from "@/types";
+import { formatDate } from "../utils";
 
 function getScoreBar(score: number): string {
   const filled = Math.round(score / 10);

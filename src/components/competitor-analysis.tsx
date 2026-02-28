@@ -30,7 +30,7 @@ export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
                     {competitor.name}
                   </h4>
                   {competitor.fundingStage && (
-                    <Badge variant="purple">{competitor.fundingStage}</Badge>
+                    <Badge variant="outline">{competitor.fundingStage}</Badge>
                   )}
                 </div>
                 {competitor.url && (

@@ -3,7 +3,7 @@
 import { ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils";
 import type { IdeaFormData } from "@/types";
 
 const CATEGORIES = [
@@ -248,7 +248,6 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
       <Button
         type="submit"
         size="lg"
-        loading={isLoading}
         disabled={isLoading || charCount < minChars}
         className="w-full"
       >

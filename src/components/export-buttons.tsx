@@ -120,7 +120,7 @@ export function ExportButtons({ report }: ExportButtonsProps) {
       <Button
         variant="outline"
         size="sm"
-        loading={pdfLoading}
+        disabled={pdfLoading}
         onClick={downloadPdf}
       >
         <Download className="w-4 h-4" />

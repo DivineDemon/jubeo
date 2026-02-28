@@ -10,12 +10,12 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils/cn";
 import {
+  cn,
   getScoreBgColor,
   getScoreBorderColor,
   getScoreColor,
-} from "@/lib/utils/format";
+} from "@/lib/utils";
 import type { ScoreMetric } from "@/types";
 
 const METRIC_ICONS: Record<string, React.ReactNode> = {
@@ -76,9 +76,7 @@ export function ScoreBreakdown({ metrics }: ScoreBreakdownProps) {
 
             <Progress
               value={metric.score}
-              barClassName={getScoreBgColor(metric.score)}
-              className="mb-3"
-              size="md"
+              className={cn("mb-3", getScoreBgColor(metric.score))}
             />
 
             <p className="text-sm text-slate-600 leading-relaxed mb-3">
