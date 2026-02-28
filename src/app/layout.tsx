@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "App Idea Validator — AI-Powered Startup Validation",
+  icons: {
+    icon: "/favicon.svg",
+  },
   description:
     "Validate your app idea with AI-driven market research, competitor analysis, and a comprehensive reality-check report. Get a validation score, actionable insights, and alternative ideas.",
   openGraph: {
