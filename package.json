@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "typecheck": "tsc -b --noEmit",
+    "format": "biome format --write",
+    "lint": "biome check --write --unsafe"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.37",
-    "@types/react-syntax-highlighter": "^15.5.13",
     "ai": "^6.0.105",
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",
@@ -30,9 +31,9 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "@biomejs/biome": "^2.4.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@types/react-syntax-highlighter": "^15.5.13"
   }
 }

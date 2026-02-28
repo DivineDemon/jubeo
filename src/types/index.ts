@@ -54,7 +54,12 @@ export interface ValidationReport {
   ideaSummary: string;
   originalIdea: string;
   overallScore: number;
-  verdict: "Strong Opportunity" | "Promising" | "Needs Work" | "Risky" | "Not Viable";
+  verdict:
+    | "Strong Opportunity"
+    | "Promising"
+    | "Needs Work"
+    | "Risky"
+    | "Not Viable";
   executiveSummary: string;
   metrics: ScoreMetric[];
   marketInsights: MarketInsight;

@@ -1,41 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import { ValidationReport } from "@/types";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Progress } from "@/components/ui/Progress";
-import { ScoreBreakdown } from "@/components/ScoreBreakdown";
-import { CompetitorAnalysis } from "@/components/CompetitorAnalysis";
-import { ImprovementSuggestions } from "@/components/ImprovementSuggestions";
-import { AlternativeIdeas } from "@/components/AlternativeIdeas";
-import { ExportButtons } from "@/components/ExportButtons";
 import {
-  getScoreColor,
-  getScoreBgColor,
-  getVerdictColor,
-  formatDate,
-} from "@/lib/utils/format";
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  CheckCircle,
+  Globe,
+  Lightbulb,
+  RefreshCw,
+  TrendingUp,
+  Users,
+} from "lucide-react";
+import { useState } from "react";
+import { AlternativeIdeas } from "@/components/alternative-ideas";
+import { CompetitorAnalysis } from "@/components/competitor-analysis";
+import { ExportButtons } from "@/components/export-buttons";
+import { ImprovementSuggestions } from "@/components/improvement-suggestions";
+import { ScoreBreakdown } from "@/components/score-breakdown";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils/cn";
 import {
-  BarChart3,
-  Users,
-  TrendingUp,
-  Lightbulb,
-  AlertTriangle,
-  CheckCircle,
-  ArrowRight,
-  RefreshCw,
-  Globe,
-} from "lucide-react";
-import { Button } from "@/components/ui/Button";
+  formatDate,
+  getScoreBgColor,
+  getScoreColor,
+  getVerdictColor,
+} from "@/lib/utils/format";
+import type { ValidationReport } from "@/types";
 
 interface ReportDisplayProps {
   report: ValidationReport;
   onReset: () => void;
 }
 
-type TabId = "overview" | "metrics" | "market" | "competitors" | "improvements" | "alternatives";
+type TabId =
+  | "overview"
+  | "metrics"
+  | "market"
+  | "competitors"
+  | "improvements"
+  | "alternatives";
 
 interface Tab {
   id: TabId;
@@ -44,12 +49,28 @@ interface Tab {
 }
 
 const TABS: Tab[] = [
-  { id: "overview", label: "Overview", icon: <BarChart3 className="w-4 h-4" /> },
+  {
+    id: "overview",
+    label: "Overview",
+    icon: <BarChart3 className="w-4 h-4" />,
+  },
   { id: "metrics", label: "Metrics", icon: <TrendingUp className="w-4 h-4" /> },
   { id: "market", label: "Market", icon: <Globe className="w-4 h-4" /> },
-  { id: "competitors", label: "Competitors", icon: <Users className="w-4 h-4" /> },
-  { id: "improvements", label: "Improvements", icon: <Lightbulb className="w-4 h-4" /> },
-  { id: "alternatives", label: "Alternatives", icon: <ArrowRight className="w-4 h-4" /> },
+  {
+    id: "competitors",
+    label: "Competitors",
+    icon: <Users className="w-4 h-4" />,
+  },
+  {
+    id: "improvements",
+    label: "Improvements",
+    icon: <Lightbulb className="w-4 h-4" />,
+  },
+  {
+    id: "alternatives",
+    label: "Alternatives",
+    icon: <ArrowRight className="w-4 h-4" />,
+  },
 ];
 
 function VerdictBadge({ verdict }: { verdict: string }) {
@@ -57,7 +78,7 @@ function VerdictBadge({ verdict }: { verdict: string }) {
     <span
       className={cn(
         "inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold border",
-        getVerdictColor(verdict)
+        getVerdictColor(verdict),
       )}
     >
       {verdict}
@@ -72,8 +93,12 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">Validation Report</h2>
-          <p className="text-sm text-slate-500 mt-0.5">{formatDate(report.createdAt)}</p>
+          <h2 className="text-xl font-bold text-slate-900">
+            Validation Report
+          </h2>
+          <p className="text-sm text-slate-500 mt-0.5">
+            {formatDate(report.createdAt)}
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <ExportButtons report={report} />
@@ -86,21 +111,36 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
 
       <div id="report-content">
         <Card variant="elevated" className="overflow-hidden">
-          <div className="bg-gradient-to-br from-indigo-600 to-violet-700 px-6 py-8 text-white">
+          <div className="bg-linear-to-br from-indigo-600 to-violet-700 px-6 py-8 text-white">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div className="flex-1 min-w-0">
                 <p className="text-indigo-200 text-xs font-medium uppercase tracking-widest mb-2">
                   App Idea Validated
                 </p>
-                <h3 className="text-lg font-bold leading-snug mb-2">{report.ideaSummary}</h3>
+                <h3 className="text-lg font-bold leading-snug mb-2">
+                  {report.ideaSummary}
+                </h3>
                 <p className="text-indigo-200 text-sm leading-relaxed line-clamp-3">
                   {report.originalIdea}
                 </p>
               </div>
               <div className="text-center shrink-0">
                 <div className="relative w-24 h-24">
-                  <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
-                    <circle cx="48" cy="48" r="42" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8" />
+                  <svg
+                    className="w-24 h-24 -rotate-90"
+                    viewBox="0 0 96 96"
+                    role="img"
+                    aria-label="Overall score"
+                  >
+                    <title>Overall score</title>
+                    <circle
+                      cx="48"
+                      cy="48"
+                      r="42"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.2)"
+                      strokeWidth="8"
+                    />
                     <circle
                       cx="48"
                       cy="48"
@@ -114,7 +154,9 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-2xl font-extrabold">{report.overallScore}</span>
+                    <span className="text-2xl font-extrabold">
+                      {report.overallScore}
+                    </span>
                     <span className="text-indigo-200 text-xs">/100</span>
                   </div>
                 </div>
@@ -129,13 +171,14 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
             <nav className="flex min-w-max">
               {TABS.map((tab) => (
                 <button
+                  type="button"
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
                     "flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                     activeTab === tab.id
                       ? "border-indigo-600 text-indigo-600"
-                      : "border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                      : "border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50",
                   )}
                 >
                   {tab.icon}
@@ -149,10 +192,12 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
             {activeTab === "overview" && (
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-700 mb-2">Executive Summary</h4>
+                  <h4 className="text-sm font-semibold text-slate-700 mb-2">
+                    Executive Summary
+                  </h4>
                   <div className="text-sm text-slate-600 leading-relaxed space-y-3">
-                    {report.executiveSummary.split("\n\n").map((para, i) => (
-                      <p key={i}>{para}</p>
+                    {report.executiveSummary.split("\n\n").map((para) => (
+                      <p key={para.slice(0, 40)}>{para}</p>
                     ))}
                   </div>
                 </div>
@@ -164,8 +209,15 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                       className="p-4 bg-slate-50 rounded-xl border border-slate-200"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <p className="text-xs font-medium text-slate-600">{metric.name}</p>
-                        <span className={cn("text-base font-bold tabular-nums", getScoreColor(metric.score))}>
+                        <p className="text-xs font-medium text-slate-600">
+                          {metric.name}
+                        </p>
+                        <span
+                          className={cn(
+                            "text-base font-bold tabular-nums",
+                            getScoreColor(metric.score),
+                          )}
+                        >
                           {metric.score}
                         </span>
                       </div>
@@ -184,8 +236,11 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                       <AlertTriangle className="w-4 h-4" /> Key Risks
                     </h5>
                     <ul className="space-y-1.5">
-                      {report.riskFactors.map((risk, i) => (
-                        <li key={i} className="text-xs text-red-700 flex items-start gap-1.5">
+                      {report.riskFactors.map((risk) => (
+                        <li
+                          key={risk}
+                          className="text-xs text-red-700 flex items-start gap-1.5"
+                        >
                           <span className="mt-1.5 w-1 h-1 rounded-full bg-red-400 shrink-0" />
                           {risk}
                         </li>
@@ -197,8 +252,11 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                       <CheckCircle className="w-4 h-4" /> Success Factors
                     </h5>
                     <ul className="space-y-1.5">
-                      {report.successFactors.map((factor, i) => (
-                        <li key={i} className="text-xs text-emerald-700 flex items-start gap-1.5">
+                      {report.successFactors.map((factor) => (
+                        <li
+                          key={factor}
+                          className="text-xs text-emerald-700 flex items-start gap-1.5"
+                        >
                           <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
                           {factor}
                         </li>
@@ -213,7 +271,10 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                   </h5>
                   <ol className="space-y-2">
                     {report.nextSteps.map((step, i) => (
-                      <li key={i} className="text-xs text-indigo-700 flex items-start gap-2">
+                      <li
+                        key={step}
+                        className="text-xs text-indigo-700 flex items-start gap-2"
+                      >
                         <span className="shrink-0 w-5 h-5 rounded-full bg-indigo-200 text-indigo-800 flex items-center justify-center font-bold text-[10px]">
                           {i + 1}
                         </span>
@@ -225,23 +286,41 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
               </div>
             )}
 
-            {activeTab === "metrics" && <ScoreBreakdown metrics={report.metrics} />}
+            {activeTab === "metrics" && (
+              <ScoreBreakdown metrics={report.metrics} />
+            )}
 
             {activeTab === "market" && (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
-                    { label: "Total Addressable Market", value: report.marketInsights.tamEstimate },
-                    { label: "Serviceable Addressable", value: report.marketInsights.samEstimate },
-                    { label: "Obtainable Market", value: report.marketInsights.somEstimate },
-                    { label: "Growth Rate", value: report.marketInsights.growthRate },
+                    {
+                      label: "Total Addressable Market",
+                      value: report.marketInsights.tamEstimate,
+                    },
+                    {
+                      label: "Serviceable Addressable",
+                      value: report.marketInsights.samEstimate,
+                    },
+                    {
+                      label: "Obtainable Market",
+                      value: report.marketInsights.somEstimate,
+                    },
+                    {
+                      label: "Growth Rate",
+                      value: report.marketInsights.growthRate,
+                    },
                   ].map((item) => (
                     <div
                       key={item.label}
                       className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center"
                     >
-                      <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-                      <p className="text-sm font-bold text-slate-800">{item.value}</p>
+                      <p className="text-xs text-slate-500 mb-1">
+                        {item.label}
+                      </p>
+                      <p className="text-sm font-bold text-slate-800">
+                        {item.value}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -249,15 +328,18 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <h5 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-1.5">
-                      <TrendingUp className="w-4 h-4 text-indigo-500" /> Key Market Trends
+                      <TrendingUp className="w-4 h-4 text-indigo-500" /> Key
+                      Market Trends
                     </h5>
                     <ul className="space-y-2">
                       {report.marketInsights.keyTrends.map((trend, i) => (
                         <li
-                          key={i}
+                          key={trend}
                           className="text-sm text-slate-600 flex items-start gap-2 p-3 bg-slate-50 rounded-lg"
                         >
-                          <span className="mt-0.5 text-indigo-500 font-bold text-xs shrink-0">{i + 1}.</span>
+                          <span className="mt-0.5 text-indigo-500 font-bold text-xs shrink-0">
+                            {i + 1}.
+                          </span>
                           {trend}
                         </li>
                       ))}
@@ -265,12 +347,13 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                   </div>
                   <div>
                     <h5 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-1.5">
-                      <Users className="w-4 h-4 text-indigo-500" /> Target Demographics
+                      <Users className="w-4 h-4 text-indigo-500" /> Target
+                      Demographics
                     </h5>
                     <ul className="space-y-2">
-                      {report.marketInsights.targetDemographics.map((demo, i) => (
+                      {report.marketInsights.targetDemographics.map((demo) => (
                         <li
-                          key={i}
+                          key={demo}
                           className="text-sm text-slate-600 flex items-start gap-2 p-3 bg-slate-50 rounded-lg"
                         >
                           <span className="mt-0.5 text-indigo-500">👤</span>
@@ -294,7 +377,8 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
             {activeTab === "alternatives" && (
               <div className="space-y-4">
                 <p className="text-sm text-slate-600">
-                  Consider these related ideas that might have better market fit or fewer competitive barriers.
+                  Consider these related ideas that might have better market fit
+                  or fewer competitive barriers.
                 </p>
                 <AlternativeIdeas alternatives={report.alternativeIdeas} />
               </div>

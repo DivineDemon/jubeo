@@ -1,9 +1,9 @@
 "use client";
 
-import { Competitor } from "@/types";
-import { Card, CardContent } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { ExternalLink, CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, ExternalLink, XCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import type { Competitor } from "@/types";
 
 interface CompetitorAnalysisProps {
   competitors: Competitor[];
@@ -12,7 +12,9 @@ interface CompetitorAnalysisProps {
 export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
   if (!competitors.length) {
     return (
-      <p className="text-sm text-slate-500 italic">No competitors identified.</p>
+      <p className="text-sm text-slate-500 italic">
+        No competitors identified.
+      </p>
     );
   }
 
@@ -24,14 +26,20 @@ export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h4 className="text-base font-semibold text-slate-800">{competitor.name}</h4>
+                  <h4 className="text-base font-semibold text-slate-800">
+                    {competitor.name}
+                  </h4>
                   {competitor.fundingStage && (
                     <Badge variant="purple">{competitor.fundingStage}</Badge>
                   )}
                 </div>
                 {competitor.url && (
                   <a
-                    href={competitor.url.startsWith("http") ? competitor.url : `https://${competitor.url}`}
+                    href={
+                      competitor.url.startsWith("http")
+                        ? competitor.url
+                        : `https://${competitor.url}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 mt-0.5"
@@ -43,15 +51,17 @@ export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
               </div>
               <div className="text-right text-xs text-slate-500 space-y-0.5">
                 {competitor.estimatedUsers && (
-                  <p className="font-medium text-slate-700">{competitor.estimatedUsers}</p>
+                  <p className="font-medium text-slate-700">
+                    {competitor.estimatedUsers}
+                  </p>
                 )}
-                {competitor.pricing && (
-                  <p>{competitor.pricing}</p>
-                )}
+                {competitor.pricing && <p>{competitor.pricing}</p>}
               </div>
             </div>
 
-            <p className="text-sm text-slate-600 mb-4 leading-relaxed">{competitor.description}</p>
+            <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+              {competitor.description}
+            </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -59,8 +69,11 @@ export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
                   <CheckCircle2 className="w-3.5 h-3.5" /> Strengths
                 </p>
                 <ul className="space-y-1">
-                  {competitor.strengths.map((s, i) => (
-                    <li key={i} className="text-xs text-slate-600 flex items-start gap-1.5">
+                  {competitor.strengths.map((s) => (
+                    <li
+                      key={s}
+                      className="text-xs text-slate-600 flex items-start gap-1.5"
+                    >
                       <span className="mt-1 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
                       {s}
                     </li>
@@ -72,8 +85,11 @@ export function CompetitorAnalysis({ competitors }: CompetitorAnalysisProps) {
                   <XCircle className="w-3.5 h-3.5" /> Weaknesses
                 </p>
                 <ul className="space-y-1">
-                  {competitor.weaknesses.map((w, i) => (
-                    <li key={i} className="text-xs text-slate-600 flex items-start gap-1.5">
+                  {competitor.weaknesses.map((w) => (
+                    <li
+                      key={w}
+                      className="text-xs text-slate-600 flex items-start gap-1.5"
+                    >
                       <span className="mt-1 w-1 h-1 rounded-full bg-red-400 shrink-0" />
                       {w}
                     </li>

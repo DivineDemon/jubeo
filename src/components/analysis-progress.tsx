@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Progress } from "@/components/ui/Progress";
 
 const STEPS = [
   { label: "Parsing your idea…", duration: 2000 },
@@ -20,7 +19,7 @@ export function AnalysisProgress() {
   useEffect(() => {
     let elapsed = 0;
     const totalDuration = STEPS.reduce((acc, s) => acc + s.duration, 0);
-    let stepStart = 0;
+    let _stepStart = 0;
     let currentStep = 0;
 
     const timer = setInterval(() => {
@@ -32,7 +31,7 @@ export function AnalysisProgress() {
         if (elapsed <= cumulative) {
           if (i !== currentStep) {
             currentStep = i;
-            stepStart = cumulative - STEPS[i].duration;
+            _stepStart = cumulative - STEPS[i].duration;
             setStepIndex(i);
           }
           break;
@@ -51,8 +50,21 @@ export function AnalysisProgress() {
   return (
     <div className="py-8 px-4 text-center space-y-6">
       <div className="relative w-20 h-20 mx-auto">
-        <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="34" fill="none" stroke="#e2e8f0" strokeWidth="6" />
+        <svg
+          className="w-20 h-20 -rotate-90"
+          viewBox="0 0 80 80"
+          role="img"
+          aria-label="Analysis progress"
+        >
+          <title>Analysis progress</title>
+          <circle
+            cx="40"
+            cy="40"
+            r="34"
+            fill="none"
+            stroke="#e2e8f0"
+            strokeWidth="6"
+          />
           <circle
             cx="40"
             cy="40"
@@ -67,25 +79,29 @@ export function AnalysisProgress() {
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-bold text-indigo-600">{Math.round(progress)}%</span>
+          <span className="text-lg font-bold text-indigo-600">
+            {Math.round(progress)}%
+          </span>
         </div>
       </div>
 
       <div>
-        <h3 className="text-base font-semibold text-slate-800 mb-1">Analyzing Your Idea</h3>
+        <h3 className="text-base font-semibold text-slate-800 mb-1">
+          Analyzing Your Idea
+        </h3>
         <p className="text-sm text-slate-500 animate-pulse">{currentLabel}</p>
       </div>
 
       <div className="max-w-xs mx-auto space-y-2">
         {STEPS.map((step, i) => (
           <div
-            key={i}
+            key={step.label}
             className={`flex items-center gap-2 text-xs transition-all duration-300 ${
               i < stepIndex
                 ? "text-emerald-600"
                 : i === stepIndex
-                ? "text-indigo-600 font-medium"
-                : "text-slate-300"
+                  ? "text-indigo-600 font-medium"
+                  : "text-slate-300"
             }`}
           >
             <span className="w-4 h-4 rounded-full border flex items-center justify-center shrink-0">

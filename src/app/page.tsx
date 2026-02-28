@@ -1,27 +1,36 @@
 "use client";
 
-import { IdeaForm } from "@/components/IdeaForm";
-import { AnalysisProgress } from "@/components/AnalysisProgress";
-import { ReportDisplay } from "@/components/ReportDisplay";
-import { useAnalysis } from "@/hooks/useAnalysis";
-import { Card, CardContent } from "@/components/ui/Card";
-import { AlertTriangle, Zap, BarChart2, FileText, TrendingUp } from "lucide-react";
+import {
+  AlertTriangle,
+  BarChart2,
+  FileText,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
+import { AnalysisProgress } from "@/components/analysis-progress";
+import { IdeaForm } from "@/components/idea-form";
+import { ReportDisplay } from "@/components/report-display";
+import { Card, CardContent } from "@/components/ui/card";
+import { useAnalysis } from "@/hooks/use-analysis";
 
 const FEATURES = [
   {
     icon: <Zap className="w-5 h-5 text-amber-500" />,
     title: "AI-Powered Analysis",
-    description: "GPT-4o analyzes your idea against 6 key validation dimensions",
+    description:
+      "GPT-4o analyzes your idea against 6 key validation dimensions",
   },
   {
     icon: <BarChart2 className="w-5 h-5 text-indigo-500" />,
     title: "Validation Score",
-    description: "Get a 0-100 score with detailed metric breakdowns and rationale",
+    description:
+      "Get a 0-100 score with detailed metric breakdowns and rationale",
   },
   {
     icon: <TrendingUp className="w-5 h-5 text-emerald-500" />,
     title: "Market Research",
-    description: "TAM/SAM/SOM estimates, growth rates, trends, and demographics",
+    description:
+      "TAM/SAM/SOM estimates, growth rates, trends, and demographics",
   },
   {
     icon: <FileText className="w-5 h-5 text-rose-500" />,
@@ -39,14 +48,16 @@ export default function Home() {
   const isError = state.status === "error";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-slate-50 to-white">
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-slate-900 text-sm">App Idea Validator</span>
+            <span className="font-bold text-slate-900 text-sm">
+              App Idea Validator
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
@@ -70,8 +81,9 @@ export default function Home() {
                 <span className="text-indigo-600">Before You Build</span>
               </h1>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                Get a comprehensive reality-check on your startup idea. AI analyzes market size,
-                competitors, feasibility, monetization potential and more — in under 30 seconds.
+                Get a comprehensive reality-check on your startup idea. AI
+                analyzes market size, competitors, feasibility, monetization
+                potential and more — in under 30 seconds.
               </p>
             </div>
 
@@ -84,7 +96,9 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center mx-auto mb-3">
                     {feature.icon}
                   </div>
-                  <p className="text-xs font-semibold text-slate-800 mb-1">{feature.title}</p>
+                  <p className="text-xs font-semibold text-slate-800 mb-1">
+                    {feature.title}
+                  </p>
                   <p className="text-xs text-slate-500 leading-relaxed hidden sm:block">
                     {feature.description}
                   </p>
@@ -99,10 +113,13 @@ export default function Home() {
                     <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
                       <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-semibold text-red-800 mb-1">Analysis Failed</p>
+                        <p className="text-sm font-semibold text-red-800 mb-1">
+                          Analysis Failed
+                        </p>
                         <p className="text-sm text-red-700">{state.error}</p>
                         <p className="text-xs text-red-600 mt-1">
-                          Make sure your OPENAI_API_KEY is set in your .env.local file.
+                          Make sure your OPENAI_API_KEY is set in your
+                          .env.local file.
                         </p>
                       </div>
                     </div>
@@ -139,9 +156,13 @@ export default function Home() {
       <footer className="border-t border-slate-200 bg-white mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center text-xs text-slate-400 space-y-1">
           <p className="font-medium text-slate-600">App Idea Validator</p>
-          <p>AI-powered startup validation for entrepreneurs, investors, and developers</p>
+          <p>
+            AI-powered startup validation for entrepreneurs, investors, and
+            developers
+          </p>
           <p className="mt-2">
-            Analysis powered by OpenAI GPT-4o. Results are for informational purposes only.
+            Analysis powered by OpenAI GPT-4o. Results are for informational
+            purposes only.
           </p>
         </div>
       </footer>

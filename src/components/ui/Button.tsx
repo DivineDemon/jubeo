@@ -1,7 +1,7 @@
 "use client";
 
+import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
-import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
@@ -10,7 +10,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", loading, disabled, children, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      loading,
+      disabled,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const base =
       "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg";
 
@@ -22,7 +33,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline:
         "border border-slate-300 text-slate-700 hover:bg-slate-50 focus:ring-slate-400 bg-white",
       ghost: "text-slate-600 hover:bg-slate-100 focus:ring-slate-400",
-      danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm",
+      danger:
+        "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm",
     };
 
     const sizes = {
@@ -44,7 +56,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

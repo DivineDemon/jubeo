@@ -1,5 +1,5 @@
+import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils/cn";
-import { HTMLAttributes } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: "default" | "bordered" | "elevated";
@@ -15,7 +15,12 @@ function Card({ className, variant = "default", ...props }: CardProps) {
 }
 
 function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("px-6 py-5 border-b border-slate-100", className)} {...props} />;
+  return (
+    <div
+      className={cn("px-6 py-5 border-b border-slate-100", className)}
+      {...props}
+    />
+  );
 }
 
 function CardContent({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
@@ -25,7 +30,10 @@ function CardContent({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 function CardFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("px-6 py-4 border-t border-slate-100 bg-slate-50 rounded-b-xl", className)}
+      className={cn(
+        "px-6 py-4 border-t border-slate-100 bg-slate-50 rounded-b-xl",
+        className,
+      )}
       {...props}
     />
   );

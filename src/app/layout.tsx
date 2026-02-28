@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     "Validate your app idea with AI-driven market research, competitor analysis, and a comprehensive reality-check report. Get a validation score, actionable insights, and alternative ideas.",
   openGraph: {
     title: "App Idea Validator",
-    description: "AI-powered startup idea validation with market research and competitor analysis",
+    description:
+      "AI-powered startup idea validation with market research and competitor analysis",
     type: "website",
   },
 };

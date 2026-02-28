@@ -1,10 +1,10 @@
 "use client";
 
+import { ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
-import { Lightbulb, ChevronDown, ChevronUp } from "lucide-react";
-import { IdeaFormData } from "@/types";
+import type { IdeaFormData } from "@/types";
 
 const CATEGORIES = [
   "SaaS / B2B",
@@ -71,7 +71,7 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
     onSubmit({ idea: idea.trim(), targetMarket, category, budget, timeline });
   }
 
-  function useExample(example: string) {
+  function applyExample(example: string) {
     setIdea(example);
     setError("");
   }
@@ -79,7 +79,10 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="idea" className="block text-sm font-semibold text-slate-700 mb-2">
+        <label
+          htmlFor="idea"
+          className="block text-sm font-semibold text-slate-700 mb-2"
+        >
           Describe Your App Idea <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -96,17 +99,22 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
             "w-full px-4 py-3 text-slate-800 placeholder-slate-400 bg-white border rounded-xl resize-none",
             "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent",
             "transition-all duration-200 text-sm leading-relaxed",
-            error ? "border-red-300 bg-red-50" : "border-slate-300"
+            error ? "border-red-300 bg-red-50" : "border-slate-300",
           )}
         />
         <div className="flex items-center justify-between mt-1.5">
-          <p className={cn("text-xs", error ? "text-red-500 font-medium" : "text-slate-500")}>
+          <p
+            className={cn(
+              "text-xs",
+              error ? "text-red-500 font-medium" : "text-slate-500",
+            )}
+          >
             {error || `Minimum ${minChars} characters for quality analysis`}
           </p>
           <span
             className={cn(
               "text-xs tabular-nums",
-              charCount > maxChars * 0.9 ? "text-amber-600" : "text-slate-400"
+              charCount > maxChars * 0.9 ? "text-amber-600" : "text-slate-400",
             )}
           >
             {charCount}/{maxChars}
@@ -119,11 +127,11 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
           Try an example idea
         </p>
         <div className="flex flex-col gap-2">
-          {EXAMPLE_IDEAS.map((ex, i) => (
+          {EXAMPLE_IDEAS.map((ex) => (
             <button
-              key={i}
+              key={ex.slice(0, 60)}
               type="button"
-              onClick={() => useExample(ex)}
+              onClick={() => applyExample(ex)}
               className="text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 px-3 py-2 rounded-lg border border-indigo-100 transition-colors line-clamp-2"
             >
               <Lightbulb className="inline w-3 h-3 mr-1 shrink-0" />
@@ -139,14 +147,22 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
           onClick={() => setShowAdvanced(!showAdvanced)}
           className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
         >
-          {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          {showAdvanced ? "Hide" : "Show"} optional details (improves analysis accuracy)
+          {showAdvanced ? (
+            <ChevronUp className="w-4 h-4" />
+          ) : (
+            <ChevronDown className="w-4 h-4" />
+          )}
+          {showAdvanced ? "Hide" : "Show"} optional details (improves analysis
+          accuracy)
         </button>
 
         {showAdvanced && (
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
             <div>
-              <label htmlFor="category" className="block text-xs font-semibold text-slate-600 mb-1.5">
+              <label
+                htmlFor="category"
+                className="block text-xs font-semibold text-slate-600 mb-1.5"
+              >
                 Category
               </label>
               <select
@@ -165,7 +181,10 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
             </div>
 
             <div>
-              <label htmlFor="targetMarket" className="block text-xs font-semibold text-slate-600 mb-1.5">
+              <label
+                htmlFor="targetMarket"
+                className="block text-xs font-semibold text-slate-600 mb-1.5"
+              >
                 Target Market
               </label>
               <input
@@ -180,7 +199,10 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
             </div>
 
             <div>
-              <label htmlFor="budget" className="block text-xs font-semibold text-slate-600 mb-1.5">
+              <label
+                htmlFor="budget"
+                className="block text-xs font-semibold text-slate-600 mb-1.5"
+              >
                 Budget
               </label>
               <select
@@ -199,7 +221,10 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
             </div>
 
             <div>
-              <label htmlFor="timeline" className="block text-xs font-semibold text-slate-600 mb-1.5">
+              <label
+                htmlFor="timeline"
+                className="block text-xs font-semibold text-slate-600 mb-1.5"
+              >
                 Timeline
               </label>
               <select

@@ -22,7 +22,7 @@ export function buildAnalysisPrompt(
   targetMarket?: string,
   category?: string,
   budget?: string,
-  timeline?: string
+  timeline?: string,
 ): string {
   const context = [
     targetMarket && `Target Market: ${targetMarket}`,

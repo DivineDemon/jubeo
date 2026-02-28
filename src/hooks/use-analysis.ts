@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { AnalysisState, IdeaFormData, ValidationReport } from "@/types";
+import { useCallback, useState } from "react";
+import type { AnalysisState, IdeaFormData, ValidationReport } from "@/types";
 
 const INITIAL_STATE: AnalysisState = {
   status: "idle",
@@ -45,7 +45,8 @@ export function useAnalysis() {
         error: null,
       });
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : "An unexpected error occurred";
+      const message =
+        error instanceof Error ? error.message : "An unexpected error occurred";
       setState({
         status: "error",
         progress: 0,

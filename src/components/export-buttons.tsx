@@ -1,10 +1,10 @@
 "use client";
 
+import { CheckCheck, Copy, Download, FileText } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
-import { ValidationReport } from "@/types";
+import { Button } from "@/components/ui/button";
 import { generateMarkdownReport } from "@/lib/report/markdown-generator";
-import { Download, FileText, Copy, CheckCheck } from "lucide-react";
+import type { ValidationReport } from "@/types";
 
 interface ExportButtonsProps {
   report: ValidationReport;
@@ -90,12 +90,21 @@ export function ExportButtons({ report }: ExportButtonsProps) {
         <FileText className="w-4 h-4" />
         Download .md
       </Button>
-      <Button variant="outline" size="sm" loading={pdfLoading} onClick={downloadPdf}>
+      <Button
+        variant="outline"
+        size="sm"
+        loading={pdfLoading}
+        onClick={downloadPdf}
+      >
         <Download className="w-4 h-4" />
         Download PDF
       </Button>
       <Button variant="outline" size="sm" onClick={copyMarkdown}>
-        {copied ? <CheckCheck className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+        {copied ? (
+          <CheckCheck className="w-4 h-4 text-emerald-600" />
+        ) : (
+          <Copy className="w-4 h-4" />
+        )}
         {copied ? "Copied!" : "Copy Markdown"}
       </Button>
     </div>

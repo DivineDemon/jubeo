@@ -1,13 +1,15 @@
-import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
-import { ValidationReport, IdeaFormData } from "@/types";
+import { generateText } from "ai";
+import type { IdeaFormData, ValidationReport } from "@/types";
 import { ANALYSIS_SYSTEM_PROMPT, buildAnalysisPrompt } from "./prompts";
 
 function generateId(): string {
   return Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
 }
 
-function parseAnalysisResponse(jsonText: string): Omit<ValidationReport, "id" | "createdAt" | "originalIdea"> {
+function parseAnalysisResponse(
+  jsonText: string,
+): Omit<ValidationReport, "id" | "createdAt" | "originalIdea"> {
   const cleaned = jsonText
     .replace(/^```json\s*/i, "")
     .replace(/^```\s*/i, "")
@@ -17,8 +19,9 @@ function parseAnalysisResponse(jsonText: string): Omit<ValidationReport, "id" | 
   const parsed = JSON.parse(cleaned);
 
   const scoreFromMetrics = parsed.metrics.reduce(
-    (acc: number, m: { score: number; weight: number }) => acc + (m.score * m.weight) / 100,
-    0
+    (acc: number, m: { score: number; weight: number }) =>
+      acc + (m.score * m.weight) / 100,
+    0,
   );
   const overallScore = parsed.overallScore ?? Math.round(scoreFromMetrics);
 
@@ -38,13 +41,15 @@ function parseAnalysisResponse(jsonText: string): Omit<ValidationReport, "id" | 
   };
 }
 
-export async function analyzeIdea(formData: IdeaFormData): Promise<ValidationReport> {
+export async function analyzeIdea(
+  formData: IdeaFormData,
+): Promise<ValidationReport> {
   const prompt = buildAnalysisPrompt(
     formData.idea,
     formData.targetMarket,
     formData.category,
     formData.budget,
-    formData.timeline
+    formData.timeline,
   );
 
   const { text } = await generateText({

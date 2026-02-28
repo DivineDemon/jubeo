@@ -27,9 +27,17 @@ function Progress({
 
   return (
     <div className={cn("w-full", className)}>
-      <div className={cn("w-full bg-slate-100 rounded-full overflow-hidden", sizes[size])}>
+      <div
+        className={cn(
+          "w-full bg-slate-100 rounded-full overflow-hidden",
+          sizes[size],
+        )}
+      >
         <div
-          className={cn("h-full rounded-full transition-all duration-500 ease-out", barClassName)}
+          className={cn(
+            "h-full rounded-full transition-all duration-500 ease-out",
+            barClassName,
+          )}
           style={{ width: `${percent}%` }}
           role="progressbar"
           aria-valuenow={value}
@@ -38,7 +46,9 @@ function Progress({
         />
       </div>
       {showLabel && (
-        <span className="text-xs text-slate-500 mt-1 block text-right">{Math.round(percent)}%</span>
+        <span className="text-xs text-slate-500 mt-1 block text-right">
+          {Math.round(percent)}%
+        </span>
       )}
     </div>
   );

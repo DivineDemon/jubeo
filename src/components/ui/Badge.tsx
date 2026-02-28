@@ -1,5 +1,5 @@
+import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils/cn";
-import { HTMLAttributes } from "react";
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: "default" | "success" | "warning" | "danger" | "info" | "purple";
@@ -20,7 +20,7 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
       className={cn(
         "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
         variants[variant],
-        className
+        className,
       )}
       {...props}
     />
