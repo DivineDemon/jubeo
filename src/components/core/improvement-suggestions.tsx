@@ -23,46 +23,40 @@ export function ImprovementSuggestions({
       { label: "Low Priority", key: "low", emoji: "🔵" },
     ];
 
-  return (
-    <div className="space-y-6">
-      {groups.map((group) => {
-        const items = grouped[group.key];
-        if (!items.length) return null;
-        return (
-          <div key={group.key}>
-            <h4 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-1.5">
-              <span>{group.emoji}</span> {group.label}
-            </h4>
-            <div className="space-y-3">
-              {items.map((item) => (
-                <div
-                  key={`${item.category}-${item.suggestion}`}
-                  className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200"
+  return groups.map((group) => {
+    const items = grouped[group.key];
+    if (!items.length) return null;
+    return (
+      <div key={group.key} className="space-y-3">
+        <h5 className="text-sm font-semibold flex items-center gap-1.5">
+          <span>{group.emoji}</span> {group.label}
+        </h5>
+        <div className="space-y-3">
+          {items.map((item) => (
+            <div
+              key={`${item.category}-${item.suggestion}`}
+              className="flex items-start gap-3 p-4 shadow rounded-xl border"
+            >
+              <div className="shrink-0 pt-0.5">
+                <span
+                  className={cn(
+                    "inline-block px-2 py-0.5 rounded-full text-xs font-medium",
+                    getPriorityColor(item.priority),
+                  )}
                 >
-                  <div className="shrink-0 pt-0.5">
-                    <span
-                      className={cn(
-                        "inline-block px-2 py-0.5 rounded-full text-xs font-medium",
-                        getPriorityColor(item.priority),
-                      )}
-                    >
-                      {item.category}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-slate-800 mb-1">
-                      {item.suggestion}
-                    </p>
-                    <p className="text-xs text-slate-500 leading-relaxed">
-                      {item.rationale}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                  {item.category}
+                </span>
+              </div>
+              <div>
+                <p className="text-sm font-medium mb-1">{item.suggestion}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {item.rationale}
+                </p>
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          ))}
+        </div>
+      </div>
+    );
+  });
 }

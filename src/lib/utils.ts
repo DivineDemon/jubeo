@@ -24,26 +24,26 @@ export function getScoreBgColor(score: number): string {
 }
 
 export function getScoreBorderColor(score: number): string {
-  if (score >= 75) return "border-emerald-200 bg-emerald-50";
-  if (score >= 55) return "border-amber-200 bg-amber-50";
-  if (score >= 35) return "border-orange-200 bg-orange-50";
-  return "border-red-200 bg-red-50";
+  if (score >= 75) return "bg-emerald-500/20 text-emerald-500";
+  if (score >= 55) return "bg-amber-500/20 text-amber-500";
+  if (score >= 35) return "bg-orange-500/20 text-orange-500";
+  return "bg-red-500/20 text-red-500";
 }
 
 export function getVerdictColor(verdict: string): string {
   switch (verdict) {
     case "Strong Opportunity":
-      return "text-emerald-700 bg-emerald-100 border-emerald-200";
+      return "text-emerald-500 bg-emerald-500/20";
     case "Promising":
-      return "text-blue-700 bg-blue-100 border-blue-200";
+      return "text-blue-500 bg-blue-500/20";
     case "Needs Work":
-      return "text-amber-700 bg-amber-100 border-amber-200";
+      return "text-amber-500 bg-amber-500/20";
     case "Risky":
-      return "text-orange-700 bg-orange-100 border-orange-200";
+      return "text-orange-500 bg-orange-500/20";
     case "Not Viable":
-      return "text-red-700 bg-red-100 border-red-200";
+      return "text-red-500 bg-red-500/20";
     default:
-      return "text-gray-700 bg-gray-100 border-gray-200";
+      return "text-gray-500 bg-gray-500/20";
   }
 }
 

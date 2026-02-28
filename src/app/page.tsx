@@ -1,47 +1,39 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { AnalysisProgress } from "@/components/core/analysis-progress";
-import { ReportDisplay } from "@/components/core/report-display";
-import Footer from "@/components/global/footer";
-import Navbar from "@/components/global/navbar";
 import Features from "@/components/landing/features";
 import FormContainer from "@/components/landing/form-container";
 import Hero from "@/components/landing/hero";
 import { useAnalysis } from "@/hooks/use-analysis";
-import type { ValidationReport } from "@/types";
+import type { IdeaFormData } from "@/types";
 
 export default function Home() {
-  const { state, analyze, reset } = useAnalysis();
+  const router = useRouter();
+  const { state, analyze } = useAnalysis();
 
   const isIdle = state.status === "idle";
   const isError = state.status === "error";
-  const isComplete = state.status === "complete";
   const isAnalyzing = state.status === "analyzing";
 
-  return (
+  async function handleSubmit(formData: IdeaFormData) {
+    const id = await analyze(formData);
+    if (id) router.push(`/results/${id}`);
+  }
+
+  return isAnalyzing ? (
+    <AnalysisProgress />
+  ) : (
     <>
-      <Navbar />
-      {isAnalyzing ? (
-        <AnalysisProgress />
-      ) : isComplete ? (
-        <ReportDisplay
-          report={state.report as ValidationReport}
-          onReset={reset}
+      <Hero />
+      <Features />
+      {(isIdle || isError) && (
+        <FormContainer
+          isError={isError}
+          onSubmit={handleSubmit}
+          isAnalyzing={isAnalyzing}
         />
-      ) : (
-        <>
-          <Hero />
-          <Features />
-          {(isIdle || isError) && (
-            <FormContainer
-              isError={isError}
-              onSubmit={analyze}
-              isAnalyzing={isAnalyzing}
-            />
-          )}
-        </>
       )}
-      <Footer />
     </>
   );
 }

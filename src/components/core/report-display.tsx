@@ -1,28 +1,13 @@
 "use client";
 
-import {
-  AlertTriangle,
-  ArrowRight,
-  BarChart3,
-  CheckCircle,
-  Globe,
-  Lightbulb,
-  RefreshCw,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { AlertTriangle, ArrowRight, CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import {
-  cn,
-  formatDate,
-  getScoreBgColor,
-  getScoreColor,
-  getVerdictColor,
-} from "@/lib/utils";
+import { TABS } from "@/lib/constants";
+import { cn, formatDate, getScoreColor, getVerdictColor } from "@/lib/utils";
 import type { ValidationReport } from "@/types";
+import MaxWidthWrapper from "../ui/max-width-wrapper";
+import { Progress } from "../ui/progress";
 import { AlternativeIdeas } from "./alternative-ideas";
 import { CompetitorAnalysis } from "./competitor-analysis";
 import { ExportButtons } from "./export-buttons";
@@ -31,47 +16,7 @@ import { ScoreBreakdown } from "./score-breakdown";
 
 interface ReportDisplayProps {
   report: ValidationReport;
-  onReset: () => void;
 }
-
-type TabId =
-  | "overview"
-  | "metrics"
-  | "market"
-  | "competitors"
-  | "improvements"
-  | "alternatives";
-
-interface Tab {
-  id: TabId;
-  label: string;
-  icon: React.ReactNode;
-}
-
-const TABS: Tab[] = [
-  {
-    id: "overview",
-    label: "Overview",
-    icon: <BarChart3 className="w-4 h-4" />,
-  },
-  { id: "metrics", label: "Metrics", icon: <TrendingUp className="w-4 h-4" /> },
-  { id: "market", label: "Market", icon: <Globe className="w-4 h-4" /> },
-  {
-    id: "competitors",
-    label: "Competitors",
-    icon: <Users className="w-4 h-4" />,
-  },
-  {
-    id: "improvements",
-    label: "Improvements",
-    icon: <Lightbulb className="w-4 h-4" />,
-  },
-  {
-    id: "alternatives",
-    label: "Alternatives",
-    icon: <ArrowRight className="w-4 h-4" />,
-  },
-];
 
 function VerdictBadge({ verdict }: { verdict: string }) {
   return (
@@ -86,129 +31,118 @@ function VerdictBadge({ verdict }: { verdict: string }) {
   );
 }
 
-export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
+export function ReportDisplay({ report }: ReportDisplayProps) {
+  const _router = useRouter();
+  const [activeTab, setActiveTab] = useState<string>("overview");
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div>
-          <h2 className="text-xl font-bold text-slate-900">
-            Validation Report
-          </h2>
-          <p className="text-sm text-slate-500 mt-0.5">
-            {formatDate(report.createdAt)}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
+    <div className="w-full h-[calc(100vh-134px)] flex flex-col items-start justify-start overflow-y-auto">
+      <MaxWidthWrapper parentBorder="border-b">
+        <div className="w-full flex items-center justify-center p-5">
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <h2 className="text-xl font-bold w-full text-left">
+              Validation Report
+            </h2>
+            <p className="text-sm w-full text-left text-muted-foreground">
+              {formatDate(report.createdAt)}
+            </p>
+          </div>
           <ExportButtons report={report} />
-          <Button variant="ghost" size="sm" onClick={onReset}>
-            <RefreshCw className="w-4 h-4" />
-            New Analysis
-          </Button>
         </div>
-      </div>
-
-      <Card className="overflow-hidden">
-        <div className="bg-linear-to-br from-indigo-600 to-violet-700 px-6 py-8 text-white">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="flex-1 min-w-0">
-              <p className="text-indigo-200 text-xs font-medium uppercase tracking-widest mb-2">
-                App Idea Validated
-              </p>
-              <h3 className="text-lg font-bold leading-snug mb-2">
-                {report.ideaSummary}
-              </h3>
-              <p className="text-indigo-200 text-sm leading-relaxed line-clamp-3">
-                {report.originalIdea}
-              </p>
-            </div>
-            <div className="text-center shrink-0">
-              <div className="relative w-24 h-24">
-                <svg
-                  className="w-24 h-24 -rotate-90"
-                  viewBox="0 0 96 96"
-                  role="img"
-                  aria-label="Overall score"
-                >
-                  <title>Overall score</title>
-                  <circle
-                    cx="48"
-                    cy="48"
-                    r="42"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.2)"
-                    strokeWidth="8"
-                  />
-                  <circle
-                    cx="48"
-                    cy="48"
-                    r="42"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={`${2 * Math.PI * 42 * (1 - report.overallScore / 100)}`}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-2xl font-extrabold">
-                    {report.overallScore}
-                  </span>
-                  <span className="text-indigo-200 text-xs">/100</span>
-                </div>
-              </div>
-              <div className="mt-2">
-                <VerdictBadge verdict={report.verdict} />
-              </div>
+      </MaxWidthWrapper>
+      <MaxWidthWrapper parentBorder="border-b">
+        <div className="w-full flex flex-col items-center justify-center p-5 gap-5">
+          <div className="relative w-24 h-24">
+            <svg
+              className="w-24 h-24 -rotate-90"
+              viewBox="0 0 96 96"
+              role="img"
+              aria-label="Overall score"
+            >
+              <title>Overall score</title>
+              <circle
+                cx="48"
+                cy="48"
+                r="42"
+                fill="none"
+                strokeWidth="8"
+                stroke="rgba(255,255,255,0.2)"
+              />
+              <circle
+                cx="48"
+                cy="48"
+                r="42"
+                fill="none"
+                strokeWidth="8"
+                strokeLinecap="round"
+                stroke="var(--primary)"
+                strokeDasharray={`${2 * Math.PI * 42}`}
+                strokeDashoffset={`${2 * Math.PI * 42 * (1 - report.overallScore / 100)}`}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-extrabold">
+                {report.overallScore}
+              </span>
+              <span className="text-indigo-200 text-xs">/100</span>
             </div>
           </div>
+          <VerdictBadge verdict={report.verdict} />
         </div>
-
-        <div className="border-b border-slate-200 overflow-x-auto">
-          <nav className="flex min-w-max">
-            {TABS.map((tab) => (
-              <button
-                type="button"
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  "flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
-                  activeTab === tab.id
-                    ? "border-indigo-600 text-indigo-600"
-                    : "border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50",
-                )}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-          </nav>
+      </MaxWidthWrapper>
+      <MaxWidthWrapper parentBorder="border-b">
+        <div className="w-full flex flex-col items-center justify-center p-5 gap-2.5">
+          <p className="text-primary text-xs font-medium uppercase tracking-widest w-full text-left">
+            App Idea Validated
+          </p>
+          <h3 className="text-xl font-bold leading-snug w-full text-left">
+            {report.ideaSummary}
+          </h3>
+          <p className="w-full text-left text-sm leading-relaxed line-clamp-3">
+            {report.originalIdea}
+          </p>
         </div>
-
-        <CardContent className="py-6">
+      </MaxWidthWrapper>
+      <MaxWidthWrapper parentBorder="border-b">
+        <div className="w-full grid grid-cols-6 items-center justify-center">
+          {TABS.map((tab) => (
+            <button
+              type="button"
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={cn(
+                "flex items-center justify-center gap-2 py-4 text-xs font-medium hover:text-primary border-b-2 transition-colors whitespace-nowrap",
+                activeTab === tab.id
+                  ? "border-primary text-primary"
+                  : "border-transparent",
+              )}
+            >
+              <tab.icon className="size-3.5 shrink-0 text-primary" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </MaxWidthWrapper>
+      <MaxWidthWrapper parentBorder="border-b" showPlusIcons={false}>
+        <div className="w-full flex flex-col items-center justify-center">
           {activeTab === "overview" && (
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-sm font-semibold text-slate-700 mb-2">
-                  Executive Summary
-                </h4>
-                <div className="text-sm text-slate-600 leading-relaxed space-y-3">
-                  {report.executiveSummary.split("\n\n").map((para) => (
-                    <p key={para.slice(0, 40)}>{para}</p>
-                  ))}
-                </div>
+            <>
+              <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
+                Executive Summary
+              </h4>
+              <div className="text-sm leading-relaxed space-y-3 w-full text-left p-5 border-b">
+                {report.executiveSummary.split("\n\n").map((para) => (
+                  <p key={para.slice(0, 40)}>{para}</p>
+                ))}
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-5 p-5 border-b">
                 {report.metrics.map((metric) => (
                   <div
                     key={metric.name}
-                    className="p-4 bg-slate-50 rounded-xl border border-slate-200"
+                    className="p-4 shadow rounded-xl border"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-xs font-medium text-slate-600">
+                      <p className="text-xs font-medium text-muted-foreground">
                         {metric.name}
                       </p>
                       <span
@@ -220,17 +154,13 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                         {metric.score}
                       </span>
                     </div>
-                    <Progress
-                      value={metric.score}
-                      className={cn(getScoreBgColor(metric.score))}
-                    />
+                    <Progress value={metric.score} />
                   </div>
                 ))}
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-red-50 rounded-xl border border-red-100">
-                  <h5 className="text-sm font-semibold text-red-800 flex items-center gap-1.5 mb-3">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 p-5 border-b">
+                <div className="p-4 bg-red-500/10 rounded-xl">
+                  <h5 className="text-sm font-semibold text-red-500 flex items-center gap-1.5 mb-3">
                     <AlertTriangle className="w-4 h-4" /> Key Risks
                   </h5>
                   <ul className="space-y-1.5">
@@ -245,8 +175,8 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                     ))}
                   </ul>
                 </div>
-                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                  <h5 className="text-sm font-semibold text-emerald-800 flex items-center gap-1.5 mb-3">
+                <div className="p-4 bg-emerald-500/10 rounded-xl">
+                  <h5 className="text-sm font-semibold text-emerald-500 flex items-center gap-1.5 mb-3">
                     <CheckCircle className="w-4 h-4" /> Success Factors
                   </h5>
                   <ul className="space-y-1.5">
@@ -262,35 +192,37 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                   </ul>
                 </div>
               </div>
-
-              <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-                <h5 className="text-sm font-semibold text-indigo-800 flex items-center gap-1.5 mb-3">
-                  <ArrowRight className="w-4 h-4" /> Recommended Next Steps
-                </h5>
-                <ol className="space-y-2">
-                  {report.nextSteps.map((step, i) => (
-                    <li
-                      key={step}
-                      className="text-xs text-indigo-700 flex items-start gap-2"
-                    >
-                      <span className="shrink-0 w-5 h-5 rounded-full bg-indigo-200 text-indigo-800 flex items-center justify-center font-bold text-[10px]">
-                        {i + 1}
-                      </span>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
+              <div className="w-full p-5 flex items-center justify-center">
+                <div className="w-full p-5 bg-indigo-500/10 rounded-xl">
+                  <h5 className="text-sm font-semibold text-indigo-500 flex items-center gap-1.5 mb-3">
+                    <ArrowRight className="w-4 h-4" /> Recommended Next Steps
+                  </h5>
+                  <ol className="space-y-2">
+                    {report.nextSteps.map((step, i) => (
+                      <li
+                        key={step}
+                        className="text-xs text-indigo-700 flex items-start gap-2"
+                      >
+                        <span className="shrink-0 w-5 h-5 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-[10px]">
+                          {i + 1}
+                        </span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </div>
-            </div>
+            </>
           )}
-
           {activeTab === "metrics" && (
             <ScoreBreakdown metrics={report.metrics} />
           )}
-
           {activeTab === "market" && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <>
+              <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
+                Market Size
+              </h4>
+              <div className="w-full grid grid-cols-2 gap-5 p-5 border-b">
                 {[
                   {
                     label: "Total Addressable Market",
@@ -311,76 +243,93 @@ export function ReportDisplay({ report, onReset }: ReportDisplayProps) {
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-center"
+                    className="p-4 shadow rounded-xl border text-center"
                   >
-                    <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-                    <p className="text-sm font-bold text-slate-800">
+                    <p className="w-full text-left text-xs text-muted-foreground mb-1">
+                      {item.label}
+                    </p>
+                    <p className="w-full text-left text-sm font-bold">
                       {item.value}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <h5 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-1.5">
-                    <TrendingUp className="w-4 h-4 text-indigo-500" /> Key
-                    Market Trends
-                  </h5>
-                  <ul className="space-y-2">
-                    {report.marketInsights.keyTrends.map((trend, i) => (
-                      <li
-                        key={trend}
-                        className="text-sm text-slate-600 flex items-start gap-2 p-3 bg-slate-50 rounded-lg"
-                      >
-                        <span className="mt-0.5 text-indigo-500 font-bold text-xs shrink-0">
-                          {i + 1}.
-                        </span>
-                        {trend}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-indigo-500" /> Target
-                    Demographics
-                  </h5>
-                  <ul className="space-y-2">
-                    {report.marketInsights.targetDemographics.map((demo) => (
-                      <li
-                        key={demo}
-                        className="text-sm text-slate-600 flex items-start gap-2 p-3 bg-slate-50 rounded-lg"
-                      >
-                        <span className="mt-0.5 text-indigo-500">👤</span>
-                        {demo}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
+                Key Market Trends
+              </h4>
+              <div className="w-full p-5 border-b">
+                <ul className="space-y-2">
+                  {report.marketInsights.keyTrends.map((trend, i) => (
+                    <li
+                      key={trend}
+                      className="text-sm text-muted-foreground flex items-start gap-2 p-3 bg-indigo-500/10 rounded-xl border"
+                    >
+                      <span className="mt-0.5 text-primary font-bold text-xs shrink-0">
+                        {i + 1}.
+                      </span>
+                      {trend}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          )}
 
+              <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
+                Target Demographics
+              </h4>
+              <div className="w-full p-5 flex items-center justify-center">
+                <ul className="w-full space-y-2">
+                  {report.marketInsights.targetDemographics.map((demo) => (
+                    <li
+                      key={demo}
+                      className="text-sm text-muted-foreground flex items-start gap-2 p-3 bg-indigo-500/10 rounded-xl border"
+                    >
+                      <span className="mt-0.5 text-primary">👤</span>
+                      {demo}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          )}
           {activeTab === "competitors" && (
-            <CompetitorAnalysis competitors={report.competitors} />
+            <>
+              <h4 className="text-sm font-semibold text-left p-5 w-full border-b">
+                Competitors
+              </h4>
+              <div className="w-full p-5 flex flex-col items-center justify-center gap-5">
+                <CompetitorAnalysis competitors={report.competitors} />
+              </div>
+            </>
           )}
-
           {activeTab === "improvements" && (
-            <ImprovementSuggestions improvements={report.improvements} />
+            <>
+              <h4 className="w-full text-left border-b text-sm font-semibold p-5">
+                Improvement Suggestions
+              </h4>
+              <div className="w-full p-5 flex flex-col items-center justify-center gap-5">
+                <ImprovementSuggestions improvements={report.improvements} />
+              </div>
+            </>
           )}
 
           {activeTab === "alternatives" && (
-            <div className="space-y-4">
-              <p className="text-sm text-slate-600">
-                Consider these related ideas that might have better market fit
-                or fewer competitive barriers.
-              </p>
-              <AlternativeIdeas alternatives={report.alternativeIdeas} />
-            </div>
+            <>
+              <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
+                Alternative Ideas
+              </h4>
+
+              <div className="w-full p-5 flex flex-col items-center justify-center gap-5">
+                <p className="text-sm leading-relaxed text-muted-foreground w-full text-left">
+                  Consider these related ideas that might have better market fit
+                  or fewer competitive barriers.
+                </p>
+                <AlternativeIdeas alternatives={report.alternativeIdeas} />
+              </div>
+            </>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </MaxWidthWrapper>
     </div>
   );
 }

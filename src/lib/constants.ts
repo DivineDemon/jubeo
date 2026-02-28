@@ -1,4 +1,14 @@
-import { BarChart2, FileText, TrendingUp, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart2,
+  BarChart3,
+  FileText,
+  Globe,
+  Lightbulb,
+  TrendingUp,
+  Users,
+  Zap,
+} from "lucide-react";
 
 export const CATEGORIES = [
   "SaaS / B2B",
@@ -72,4 +82,29 @@ export const STEPS = [
   { label: "Assessing monetization potential…", duration: 3000 },
   { label: "Generating improvement suggestions…", duration: 4000 },
   { label: "Scoring and compiling report…", duration: 3000 },
+];
+
+export const TABS = [
+  {
+    id: "overview",
+    label: "Overview",
+    icon: BarChart3,
+  },
+  { id: "metrics", label: "Metrics", icon: TrendingUp },
+  { id: "market", label: "Market", icon: Globe },
+  {
+    id: "competitors",
+    label: "Competitors",
+    icon: Users,
+  },
+  {
+    id: "improvements",
+    label: "Improvements",
+    icon: Lightbulb,
+  },
+  {
+    id: "alternatives",
+    label: "Alternatives",
+    icon: ArrowRight,
+  },
 ];

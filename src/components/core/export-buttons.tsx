@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCheck, Copy, Download, FileText } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { generateMarkdownReport } from "@/lib/report/markdown-generator";
@@ -11,7 +11,6 @@ interface ExportButtonsProps {
 }
 
 export function ExportButtons({ report }: ExportButtonsProps) {
-  const [copied, setCopied] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(false);
 
   function downloadMarkdown() {
@@ -25,13 +24,6 @@ export function ExportButtons({ report }: ExportButtonsProps) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }
-
-  async function copyMarkdown() {
-    const md = generateMarkdownReport(report);
-    await navigator.clipboard.writeText(md);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   }
 
   async function downloadPdf() {
@@ -125,14 +117,6 @@ export function ExportButtons({ report }: ExportButtonsProps) {
       >
         <Download className="w-4 h-4" />
         Download PDF
-      </Button>
-      <Button variant="outline" size="sm" onClick={copyMarkdown}>
-        {copied ? (
-          <CheckCheck className="w-4 h-4 text-emerald-600" />
-        ) : (
-          <Copy className="w-4 h-4" />
-        )}
-        {copied ? "Copied!" : "Copy Markdown"}
       </Button>
     </div>
   );
