@@ -1,10 +1,10 @@
 # App Idea Validator
 
-An AI-powered web application that validates startup app ideas using GPT-4o. Get a comprehensive reality-check report with validation scores, market research, competitor analysis, improvement suggestions, and alternative ideas.
+An AI-powered web application that validates startup app ideas using Google Gemini. Get a comprehensive reality-check report with validation scores, market research, competitor analysis, improvement suggestions, and alternative ideas.
 
 ## Features
 
-- **AI-Powered Analysis** — GPT-4o analyzes ideas across 6 validation dimensions
+- **AI-Powered Analysis** — Google Gemini analyzes ideas across 6 validation dimensions
 - **Validation Score** — 0–100 score with weighted metric breakdown
 - **Market Research** — TAM/SAM/SOM estimates, growth rates, key trends
 - **Competitor Analysis** — Real competitor discovery with strengths/weaknesses
@@ -17,20 +17,20 @@ An AI-powered web application that validates startup app ideas using GPT-4o. Get
 ### Prerequisites
 
 - Node.js 18+
-- An [OpenAI API key](https://platform.openai.com/api-keys)
+- A [Google AI Studio API key](https://aistudio.google.com/apikey) (Gemini)
 
 ### Installation
 
 ```bash
-# Install dependencies
-npm install
+# Install dependencies (using Bun)
+bun install
 
 # Set up environment variables
-cp .env.local.example .env.local
-# Edit .env.local and add your OPENAI_API_KEY
+cp .env.example .env.local
+# Edit .env.local and add your GEMINI_API_KEY
 
 # Start the development server
-npm run dev
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -39,14 +39,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `OPENAI_API_KEY` | ✅ Yes | OpenAI API key for GPT-4o analysis |
+| `GEMINI_API_KEY` | ✅ Yes | Google Gemini API key for AI analysis ([get one](https://aistudio.google.com/apikey)) |
 
 ## Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **AI**: Vercel AI SDK + OpenAI GPT-4o
+- **AI**: @google/genai + Google Gemini
 - **Validation**: Zod
 - **Icons**: Lucide React
 - **PDF Export**: jsPDF + html2canvas

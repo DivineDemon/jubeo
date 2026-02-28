@@ -11,12 +11,12 @@
     "lint": "biome check --write --unsafe"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^3.0.37",
-    "ai": "^6.0.105",
+    "@google/genai": "^1.0.0",
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.0",
     "lucide-react": "^0.575.0",
+    "marked": "^17.0.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -27,13 +27,15 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "@csstools/postcss-oklab-function": "^5.0.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@biomejs/biome": "^2.4.4",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "postcss-lab-function": "^8.0.2",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "@types/react-syntax-highlighter": "^15.5.13"
+    "typescript": "^5"
   }
 }

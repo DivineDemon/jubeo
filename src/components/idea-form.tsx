@@ -256,7 +256,7 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
       </Button>
 
       <p className="text-xs text-center text-slate-400">
-        Analysis typically takes 15–30 seconds using GPT-4o
+        Analysis typically takes 15–30 seconds using Gemini
       </p>
     </form>
   );

@@ -1,5 +1,4 @@
-import { openai } from "@ai-sdk/openai";
-import { generateText } from "ai";
+import { GoogleGenAI } from "@google/genai";
 import type { IdeaFormData, ValidationReport } from "@/types";
 import { ANALYSIS_SYSTEM_PROMPT, buildAnalysisPrompt } from "./prompts";
 
@@ -44,6 +43,15 @@ function parseAnalysisResponse(
 export async function analyzeIdea(
   formData: IdeaFormData,
 ): Promise<ValidationReport> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "GEMINI_API_KEY is not set. Please add it to your environment variables.",
+    );
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
+
   const prompt = buildAnalysisPrompt(
     formData.idea,
     formData.targetMarket,
@@ -52,13 +60,20 @@ export async function analyzeIdea(
     formData.timeline,
   );
 
-  const { text } = await generateText({
-    model: openai("gpt-4o"),
-    system: ANALYSIS_SYSTEM_PROMPT,
-    prompt,
-    temperature: 0.7,
-    maxOutputTokens: 4000,
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: prompt,
+    config: {
+      systemInstruction: ANALYSIS_SYSTEM_PROMPT,
+      temperature: 0.7,
+      maxOutputTokens: 4000,
+    },
   });
+
+  const text = response.text ?? "";
+  if (!text) {
+    throw new Error("Gemini returned an empty response.");
+  }
 
   const parsed = parseAnalysisResponse(text);
 

@@ -28,11 +28,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json(
         {
           error:
-            "OpenAI API key not configured. Please add OPENAI_API_KEY to your environment variables.",
+            "Gemini API key not configured. Please add GEMINI_API_KEY to your environment variables.",
         },
         { status: 503 },
       );

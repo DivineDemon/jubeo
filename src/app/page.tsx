@@ -18,7 +18,7 @@ const FEATURES = [
     icon: <Zap className="w-5 h-5 text-amber-500" />,
     title: "AI-Powered Analysis",
     description:
-      "GPT-4o analyzes your idea against 6 key validation dimensions",
+      "Gemini analyzes your idea against 6 key validation dimensions",
   },
   {
     icon: <BarChart2 className="w-5 h-5 text-indigo-500" />,
@@ -61,7 +61,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
-              Powered by GPT-4o
+              Powered by Gemini
             </span>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function Home() {
                         </p>
                         <p className="text-sm text-red-700">{state.error}</p>
                         <p className="text-xs text-red-600 mt-1">
-                          Make sure your OPENAI_API_KEY is set in your
+                          Make sure your GEMINI_API_KEY is set in your
                           .env.local file.
                         </p>
                       </div>
@@ -161,7 +161,7 @@ export default function Home() {
             developers
           </p>
           <p className="mt-2">
-            Analysis powered by OpenAI GPT-4o. Results are for informational
+            Analysis powered by Google Gemini. Results are for informational
             purposes only.
           </p>
         </div>
