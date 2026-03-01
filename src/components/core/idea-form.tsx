@@ -79,15 +79,15 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
   return (
     <form
       onSubmit={form.handleSubmit(handleSubmit)}
-      className="w-full grid grid-cols-2 items-start justify-start gap-5"
+      className="w-full grid grid-cols-1 md:grid-cols-2 items-start justify-start gap-4 sm:gap-5"
     >
-      <Field className="col-span-2">
+      <Field className="col-span-1 md:col-span-2">
         <FieldLabel htmlFor="idea">
           Describe Your App Idea <span className="text-destructive">*</span>
         </FieldLabel>
         <Textarea
           id="idea"
-          className="h-52"
+          className="min-h-44 sm:min-h-48 md:h-52 w-full resize-y"
           {...form.register("idea")}
           placeholder="Describe your app idea in detail. What problem does it solve? Who is it for? What makes it unique? The more detail you provide, the better the analysis..."
         />
@@ -101,12 +101,10 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
       </Field>
       <button
         type="button"
-        className="w-full col-span-2 flex items-center justify-center p-3.5 border rounded-lg"
+        className="w-full col-span-1 md:col-span-2 flex items-center justify-center p-3 sm:p-3.5 border rounded-lg text-left"
         onClick={() => setShowAdvanced(!showAdvanced)}
       >
-        <span className="flex-1 text-sm text-left font-medium">
-          Show Advanced
-        </span>
+        <span className="flex-1 text-sm font-medium">Show Advanced</span>
         <ChevronDown
           className={cn(
             "size-4 shrink-0 transition-transform duration-200",
@@ -116,7 +114,7 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
       </button>
       {showAdvanced && (
         <>
-          <Field>
+          <Field className="col-span-1 md:col-span-2">
             <FieldLabel htmlFor="category">Category</FieldLabel>
             <Select>
               <SelectTrigger>
@@ -138,7 +136,7 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
               }
             />
           </Field>
-          <Field>
+          <Field className="col-span-1 md:col-span-2">
             <FieldLabel htmlFor="targetMarket">Target Market</FieldLabel>
             <Input
               id="targetMarket"
@@ -200,7 +198,7 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
           </Field>
         </>
       )}
-      <div className="w-full col-span-2 flex flex-col items-center justify-center gap-2.5">
+      <div className="w-full col-span-1 md:col-span-2 flex flex-col items-stretch gap-2.5">
         <Label htmlFor="examples" className="w-full text-left">
           Try an example idea
         </Label>
@@ -209,10 +207,12 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
             type="button"
             key={ex.slice(0, 60)}
             onClick={() => applyExample(ex)}
-            className="text-left text-sm text-primary px-3 py-2 rounded-lg border border-primary/50 hover:border-primary hover:bg-primary/10 transition-colors flex items-start justify-start gap-2 cursor-pointer"
+            className="w-full text-left text-sm text-primary px-3 py-2.5 sm:py-2 rounded-lg border border-primary/50 hover:border-primary hover:bg-primary/10 transition-colors flex items-start gap-2 cursor-pointer min-w-0"
           >
-            <Lightbulb className="size-4 shrink-0 mt-1" />
-            <span className="flex-1 text-left line-clamp-2">{ex}</span>
+            <Lightbulb className="size-4 shrink-0 mt-0.5" />
+            <span className="flex-1 min-w-0 text-left line-clamp-2 wrap-break-word">
+              {ex}
+            </span>
           </button>
         ))}
       </div>
@@ -220,11 +220,11 @@ export function IdeaForm({ onSubmit, isLoading }: IdeaFormProps) {
         size="lg"
         type="submit"
         disabled={isLoading}
-        className="w-full col-span-2"
+        className="w-full col-span-1 md:col-span-2 py-3 sm:py-4"
       >
         {isLoading ? "Analyzing your idea…" : "Validate My Idea →"}
       </Button>
-      <p className="w-full col-span-2 text-center text-xs text-primary">
+      <p className="w-full col-span-1 md:col-span-2 text-center text-xs text-primary px-1 sm:px-0">
         Analysis typically takes 15-30 seconds using Gemini
       </p>
     </form>

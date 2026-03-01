@@ -1,7 +1,6 @@
 "use client";
 
 import { AlertTriangle, ArrowRight, CheckCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TABS } from "@/lib/constants";
 import { cn, formatDate, getScoreColor, getVerdictColor } from "@/lib/utils";
@@ -32,14 +31,13 @@ function VerdictBadge({ verdict }: { verdict: string }) {
 }
 
 export function ReportDisplay({ report }: ReportDisplayProps) {
-  const _router = useRouter();
   const [activeTab, setActiveTab] = useState<string>("overview");
 
   return (
-    <div className="w-full h-[calc(100vh-134px)] flex flex-col items-start justify-start overflow-y-auto">
+    <div className="w-full min-h-[calc(100vh-134px)] flex flex-col items-start justify-start">
       <MaxWidthWrapper parentBorder="border-b">
-        <div className="w-full flex items-center justify-center p-5">
-          <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="w-full flex flex-col md:flex-row items-center justify-center p-5 gap-5 md:gap-0">
+          <div className="w-full md:flex-1 flex flex-col items-start justify-start md:items-center md:justify-center">
             <h2 className="text-xl font-bold w-full text-left">
               Validation Report
             </h2>
@@ -104,14 +102,17 @@ export function ReportDisplay({ report }: ReportDisplayProps) {
         </div>
       </MaxWidthWrapper>
       <MaxWidthWrapper parentBorder="border-b">
-        <div className="w-full grid grid-cols-6 items-center justify-center">
+        <div
+          className="w-full min-w-0 flex items-start justify-start overflow-x-auto overscroll-x-contain [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted-foreground/30"
+          style={{ WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+        >
           {TABS.map((tab) => (
             <button
               type="button"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "flex items-center justify-center gap-2 py-4 text-xs font-medium hover:text-primary border-b-2 transition-colors whitespace-nowrap",
+                "md:w-1/6 flex shrink-0 items-center justify-center gap-2 p-4 text-xs font-medium hover:text-primary border-b-2 transition-colors whitespace-nowrap",
                 activeTab === tab.id
                   ? "border-primary text-primary"
                   : "border-transparent",
@@ -222,7 +223,7 @@ export function ReportDisplay({ report }: ReportDisplayProps) {
               <h4 className="text-sm font-semibold w-full text-left p-5 border-b">
                 Market Size
               </h4>
-              <div className="w-full grid grid-cols-2 gap-5 p-5 border-b">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 p-5 border-b">
                 {[
                   {
                     label: "Total Addressable Market",

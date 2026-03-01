@@ -3,7 +3,7 @@ import MaxWidthWrapper from "../ui/max-width-wrapper";
 
 const Features = () => {
   return (
-    <MaxWidthWrapper>
+    <MaxWidthWrapper parentBorder="border-b">
       <div className="w-full p-5 gap-5 grid grid-cols-1 md:grid-cols-2">
         {FEATURES.map((feature) => (
           <div

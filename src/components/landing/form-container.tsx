@@ -15,7 +15,7 @@ const FormContainer = ({
   onSubmit,
 }: FormContainerProps) => {
   return (
-    <MaxWidthWrapper parentBorder="border-b">
+    <MaxWidthWrapper parentBorder="border-y">
       <div className="w-full flex flex-col items-start justify-start p-5 gap-5">
         {isError && (
           <div className="w-full p-3 rounded-md bg-destructive/10 border border-destructive flex flex-col items-center justify-center gap-1">
@@ -31,12 +31,6 @@ const FormContainer = ({
           </div>
         )}
         <IdeaForm onSubmit={onSubmit} isLoading={isAnalyzing} />
-        <div className="w-full flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-          <span>✓ No account required</span>
-          <span>✓ Results in ~20 seconds</span>
-          <span>✓ Export to PDF or Markdown</span>
-          <span>✓ 6 validation dimensions</span>
-        </div>
       </div>
     </MaxWidthWrapper>
   );

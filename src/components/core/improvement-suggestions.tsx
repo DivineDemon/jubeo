@@ -27,15 +27,18 @@ export function ImprovementSuggestions({
     const items = grouped[group.key];
     if (!items.length) return null;
     return (
-      <div key={group.key} className="space-y-3">
+      <div
+        key={group.key}
+        className="w-full flex flex-col items-start justify-start gap-3"
+      >
         <h5 className="text-sm font-semibold flex items-center gap-1.5">
           <span>{group.emoji}</span> {group.label}
         </h5>
-        <div className="space-y-3">
+        <div className="w-full flex flex-col items-start justify-start gap-3">
           {items.map((item) => (
             <div
               key={`${item.category}-${item.suggestion}`}
-              className="flex items-start gap-3 p-4 shadow rounded-xl border"
+              className="w-full flex flex-col items-start justify-start gap-3 p-4 shadow rounded-xl border"
             >
               <div className="shrink-0 pt-0.5">
                 <span

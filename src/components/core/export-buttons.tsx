@@ -104,16 +104,22 @@ export function ExportButtons({ report }: ExportButtonsProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button variant="outline" size="sm" onClick={downloadMarkdown}>
+    <div className="w-full md:w-auto flex flex-wrap gap-2">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={downloadMarkdown}
+        className="w-full md:w-auto"
+      >
         <FileText className="w-4 h-4" />
         Download .md
       </Button>
       <Button
-        variant="outline"
         size="sm"
+        variant="outline"
         disabled={pdfLoading}
         onClick={downloadPdf}
+        className="w-full md:w-auto"
       >
         <Download className="w-4 h-4" />
         Download PDF

@@ -14,7 +14,7 @@ export default async function HistoryPage() {
 
   return (
     <MaxWidthWrapper parentBorder="border-b">
-      <div className="w-full h-[calc(100vh-134px)] flex flex-col items-start justify-start p-5 gap-5 overflow-y-auto">
+      <div className="w-full min-h-[calc(100vh-134px)] flex flex-col items-start justify-start p-5 gap-5">
         <h1 className="w-full text-left text-xl font-bold text-foreground">
           Analysis History
         </h1>

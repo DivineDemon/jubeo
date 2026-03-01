@@ -26,7 +26,6 @@ export default function Home() {
   ) : (
     <>
       <Hero />
-      <Features />
       {(isIdle || isError) && (
         <FormContainer
           isError={isError}
@@ -34,6 +33,7 @@ export default function Home() {
           isAnalyzing={isAnalyzing}
         />
       )}
+      <Features />
     </>
   );
 }

@@ -1,30 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fira_Code, Merriweather, Oxanium } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/config/theme-provider";
 import Footer from "@/components/global/footer";
 import Navbar from "@/components/global/navbar";
 import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Oxanium({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontSerif = Merriweather({
   subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const fontMono = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "App Idea Validator — AI-Powered Startup Validation",
+  title: "Jubeo — AI-Powered Startup Validation",
   icons: {
     icon: "/favicon.svg",
   },
   description:
     "Validate your app idea with AI-driven market research, competitor analysis, and a comprehensive reality-check report. Get a validation score, actionable insights, and alternative ideas.",
   openGraph: {
-    title: "App Idea Validator",
+    title: "Jubeo",
     description:
       "AI-powered startup idea validation with market research and competitor analysis",
     type: "website",
@@ -39,7 +44,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(geistSans.variable, geistMono.variable, "antialiased")}
+        className={cn(
+          fontSans.variable,
+          fontSerif.variable,
+          fontMono.variable,
+          "antialiased",
+        )}
       >
         <ThemeProvider
           enableSystem
